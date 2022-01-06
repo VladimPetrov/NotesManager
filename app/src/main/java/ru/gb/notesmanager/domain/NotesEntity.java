@@ -1,4 +1,4 @@
-package ru.gb.notesmanager;
+package ru.gb.notesmanager.domain;
 
 import android.os.Parcel;
 import android.os.Parcelable;
