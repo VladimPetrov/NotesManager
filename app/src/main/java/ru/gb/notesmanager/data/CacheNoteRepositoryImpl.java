@@ -56,7 +56,7 @@ public class CacheNoteRepositoryImpl implements NoteRepository {
     }
 
     @Override
-    public void deleteEmployee(NotesEntity noteEntity) {
+    public void deleteNote(NotesEntity noteEntity) {
         try {
             cache.remove(findPosition(noteEntity));
         } catch (IllegalArgumentException iae) {

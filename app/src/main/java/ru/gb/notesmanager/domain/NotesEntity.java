@@ -21,7 +21,7 @@ public class NotesEntity implements Parcelable {
     }
 
     protected NotesEntity(Parcel in) {
-        id = in.readString()
+        id = in.readString();
         title = in.readString();
         textNote = in.readString();
         date = in.readString();
