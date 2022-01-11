@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements OnNoteListener {
         adapter = new NoteAdapter();
         adapter.setNoteList(noteRepository.getNotes());
         adapter.setOnNoteListener(this);
-
         recyclerView.setAdapter(adapter);
     }
 

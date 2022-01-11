@@ -3,6 +3,7 @@ package ru.gb.notesmanager.ui;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,9 +14,9 @@ import ru.gb.notesmanager.domain.NotesEntity;
 
 public class NoteActivity extends AppCompatActivity {
     public static final String NOTE_EXTRA_KEY = "NOTE_EXTRA_KEY";
-    private TextView titleTextView;
+    private EditText titleEditText;
     private TextView dateTextView;
-    private TextView noteTextView;
+    private EditText noteEditText;
     private Button deleteButton;
 
     @Override
@@ -26,14 +27,14 @@ public class NoteActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        titleTextView = findViewById(R.id.title_note_text_view);
+        titleEditText = findViewById(R.id.title_note_edit_text);
         dateTextView = findViewById(R.id.date_note_text_view);
-        noteTextView = findViewById(R.id.body_note_text_view);
+        noteEditText = findViewById(R.id.body_note_edit_text);
         deleteButton = findViewById(R.id.delete_button);
         NotesEntity notesEntity = getIntent().getParcelableExtra(NOTE_EXTRA_KEY);
-        titleTextView.setText(notesEntity.getTitle());
+        titleEditText.setText(notesEntity.getTitle());
         dateTextView.setText(notesEntity.getDate());
-        noteTextView.setText(notesEntity.getTextNote());
+        noteEditText.setText(notesEntity.getTextNote());
 
         deleteButton.setOnClickListener(v -> {
             App.get(this).getNoteRepository().deleteNote(notesEntity);

@@ -12,5 +12,7 @@
         <item name="android:layout_width">@dimen/width_image_view</item>
         <item name="android:layout_height">@dimen/height_image_view</item>
         <item name="android:tint">@color/image_view_color</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
     </style>
 </resources>

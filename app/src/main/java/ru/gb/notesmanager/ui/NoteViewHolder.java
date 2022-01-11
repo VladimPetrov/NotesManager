@@ -30,6 +30,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder{
     public void bind(NotesEntity note) {
         deleteButton.setOnClickListener(v -> onNoteListener.onDeleteEmployee(note));
         itemView.setOnClickListener(v -> onNoteListener.onClickEmployee(note));
+        updateButton.setOnClickListener(v -> onNoteListener.onUpdateEmployee(note));
 
         titleTextView.setText(note.getTitle());
         dataTextView.setText(note.getDate());
