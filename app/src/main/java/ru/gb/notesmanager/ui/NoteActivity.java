@@ -42,12 +42,9 @@ public class NoteActivity extends AppCompatActivity {
         Log.d("@@@", "Title = " + notesEntity.getTitle());
         if (notesEntity.getTitle().equals("")) {
             addNote = true;
-            //titleEditText.setText("Title");
-            //titleEditText.setTextColor(resources.getColor(R.color.text_color_gray,  null));
         } else {
             addNote = false;
-            //titleEditText.setText(notesEntity.getTitle());
-            //titleEditText.setTextColor(resources.getColor(R.color.text_color,  null));
+            titleEditText.setText(notesEntity.getTitle());
         }
         Log.d("@@@", "addNote = " + addNote);
         dateTextView.setText(notesEntity.getDate());
