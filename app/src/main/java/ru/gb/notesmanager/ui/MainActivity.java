@@ -55,6 +55,14 @@ public class MainActivity extends AppCompatActivity implements OnNoteListener {
     }
 
     @Override
+    public void onUpdateEmployee(NotesEntity noteEntity) {
+        Intent intent = new Intent(this,NoteActivity.class);
+        intent.putExtra(NoteActivity.NOTE_EXTRA_KEY,noteEntity);
+        //startActivity(intent);
+        startActivityForResult(intent, NOTE_REQUEST_CODE);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 

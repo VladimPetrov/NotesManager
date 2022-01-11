@@ -5,4 +5,5 @@ import ru.gb.notesmanager.domain.NotesEntity;
 public interface OnNoteListener {
     void onDeleteEmployee(NotesEntity employeeEntity);
     void onClickEmployee(NotesEntity employeeEntity);
+    void onUpdateEmployee(NotesEntity employeeEntity);
 }
