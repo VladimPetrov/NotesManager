@@ -17,7 +17,7 @@ public class NotesEntity implements Parcelable {
         this.id = id;
         this.title = title;
         this.textNote = textNote;
-        setDate(new Date());
+        setDate();
     }
 
     protected NotesEntity(Parcel in) {
@@ -62,9 +62,7 @@ public class NotesEntity implements Parcelable {
         return date;
     }
 
-    private void setDate(Date date) {
-        this.date = new SimpleDateFormat(formatDate).format(date);
-    }
+    public void setDate() { this.date = new SimpleDateFormat(formatDate).format(new Date()); }
 
     @Override
     public int describeContents() {

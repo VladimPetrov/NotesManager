@@ -48,7 +48,7 @@ public class CacheNoteRepositoryImpl implements NoteRepository {
         return noteEntities;
     }
 
-
+    public int getSize() { return cache.size(); }
 
     @Override
     public List<NotesEntity> getNotes() {
@@ -62,6 +62,18 @@ public class CacheNoteRepositoryImpl implements NoteRepository {
         } catch (IllegalArgumentException iae) {
             iae.printStackTrace();
         }
+    }
+    @Override
+    public void updateNote(NotesEntity noteEntity) {
+        try {
+            cache.set(findPosition(noteEntity),noteEntity);
+        } catch (IllegalArgumentException iae) {
+            iae.printStackTrace();
+        }
+    }
+    @Override
+    public void addNote(NotesEntity noteEntity) {
+        cache.add(noteEntity);
     }
     private int findPosition(NotesEntity noteEntity) {
         for (int i = 0; i < cache.size(); i++) {

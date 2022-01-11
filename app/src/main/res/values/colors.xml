@@ -11,5 +11,6 @@
     <color name="background_button">#2196F3</color>
     <color name="stroke_color">#3F51B5</color>
     <color name="text_color">#0B0A0A</color>
+    <color name="text_color_gray">#9C9898</color>
     <color name="image_view_color">#C6817C</color>
 </resources>

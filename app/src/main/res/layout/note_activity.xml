@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_size"
-        android:text="Title"
+        android:hint="Title"
         android:textColor="@color/black"
         android:textSize="28sp"
         android:textStyle="bold" />
@@ -47,7 +47,7 @@
         android:layout_weight="10"
         android:background="@color/note_background"
         android:padding="@dimen/padding_size"
-        android:text="Text"
+        android:hint="Text"
         android:textColor="@color/black"
         android:textSize="14sp" />
     <LinearLayout
