@@ -1,4 +1,4 @@
-package ru.gb.notesmanager.ui;
+package ru.gb.notesmanager.ui.list;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import ru.gb.notesmanager.domain.NotesEntity;
 import ru.gb.notesmanager.R;
+import ru.gb.notesmanager.ui.OnNoteListener;
 
 public class NoteViewHolder extends RecyclerView.ViewHolder{
     private final TextView titleTextView = itemView.findViewById(R.id.title_text_view);

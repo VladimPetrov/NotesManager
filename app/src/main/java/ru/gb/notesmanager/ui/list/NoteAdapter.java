@@ -1,4 +1,4 @@
-package ru.gb.notesmanager.ui;
+package ru.gb.notesmanager.ui.list;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.gb.notesmanager.domain.NotesEntity;
+import ru.gb.notesmanager.ui.OnNoteListener;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
