@@ -8,6 +8,7 @@
     tools:context=".ui.MainActivity">
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/add_button"
         style="@style/material_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

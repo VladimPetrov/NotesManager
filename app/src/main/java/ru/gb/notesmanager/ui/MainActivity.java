@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 
 import ru.gb.notesmanager.App;
 import ru.gb.notesmanager.domain.NoteRepository;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements OnNoteListener {
     private RecyclerView recyclerView;
     private NoteAdapter adapter;
     private NoteRepository noteRepository;
+    private Button addButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,17 @@ public class MainActivity extends AppCompatActivity implements OnNoteListener {
         noteRepository = App.get(this).getNoteRepository();
         Log.d("@@@", "noteRepository.size = " + noteRepository.getNotes().size());
         initRecycler();
+        initButton();
+    }
+
+    private void initButton() {
+        addButton = findViewById(R.id.add_button);
+        addButton.setOnClickListener(v -> {
+            NotesEntity noteEntity = new NotesEntity(String.valueOf(noteRepository.getSize()),"","");
+            Intent intent = new Intent(this,NoteActivity.class);
+            intent.putExtra(NoteActivity.NOTE_EXTRA_KEY,noteEntity);
+            startActivityForResult(intent, NOTE_REQUEST_CODE);
+        });
     }
 
     private void initRecycler() {
@@ -36,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements OnNoteListener {
         adapter = new NoteAdapter();
         adapter.setNoteList(noteRepository.getNotes());
         adapter.setOnNoteListener(this);
-
         recyclerView.setAdapter(adapter);
     }
 
@@ -48,6 +60,14 @@ public class MainActivity extends AppCompatActivity implements OnNoteListener {
 
     @Override
     public void onClickEmployee(NotesEntity noteEntity) {
+        Intent intent = new Intent(this,NoteActivity.class);
+        intent.putExtra(NoteActivity.NOTE_EXTRA_KEY,noteEntity);
+        //startActivity(intent);
+        startActivityForResult(intent, NOTE_REQUEST_CODE);
+    }
+
+    @Override
+    public void onUpdateEmployee(NotesEntity noteEntity) {
         Intent intent = new Intent(this,NoteActivity.class);
         intent.putExtra(NoteActivity.NOTE_EXTRA_KEY,noteEntity);
         //startActivity(intent);
