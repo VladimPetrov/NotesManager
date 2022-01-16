@@ -1,8 +1,6 @@
 package ru.gb.notesmanager.ui.list;
 
-import static ru.gb.notesmanager.R.layout.fragment_notes_list;
-
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +18,6 @@ import ru.gb.notesmanager.App;
 import ru.gb.notesmanager.R;
 import ru.gb.notesmanager.domain.NoteRepository;
 import ru.gb.notesmanager.domain.NotesEntity;
-import ru.gb.notesmanager.ui.NoteActivity;
 import ru.gb.notesmanager.ui.OnNoteListener;
 
 public class NotesListFragment extends Fragment implements OnNoteListener {
@@ -29,6 +26,18 @@ public class NotesListFragment extends Fragment implements OnNoteListener {
     private NoteAdapter adapter;
     private NoteRepository noteRepository;
     private Button addButton;
+    private Controller controller;
+
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof Controller) {
+            controller = (Controller) context;
+        } else {
+            throw new IllegalStateException("Activity must implement NotesListFragment.Controller");
+        }
+    }
 
 
     @Nullable
@@ -49,10 +58,7 @@ public class NotesListFragment extends Fragment implements OnNoteListener {
     private void initButton(@NonNull View view) {
         addButton = view.findViewById(R.id.fragment_notes_list__add_button);
         addButton.setOnClickListener(v -> {
-            NotesEntity noteEntity = new NotesEntity(String.valueOf(noteRepository.getSize()),"","");
-            Intent intent = new Intent(getContext(), NoteActivity.class);
-            intent.putExtra(NoteActivity.NOTE_EXTRA_KEY,noteEntity);
-            startActivityForResult(intent, NOTE_REQUEST_CODE);
+
         });
     }
 
@@ -73,18 +79,16 @@ public class NotesListFragment extends Fragment implements OnNoteListener {
 
     @Override
     public void onClickEmployee(NotesEntity noteEntity) {
-        Intent intent = new Intent(getContext(),NoteActivity.class);
-        intent.putExtra(NoteActivity.NOTE_EXTRA_KEY,noteEntity);
-        //startActivity(intent);
-        startActivityForResult(intent, NOTE_REQUEST_CODE);
+        controller.showNoteDetails(noteEntity);
     }
 
     @Override
     public void onUpdateEmployee(NotesEntity noteEntity) {
-        Intent intent = new Intent(getContext(),NoteActivity.class);
-        intent.putExtra(NoteActivity.NOTE_EXTRA_KEY,noteEntity);
-        //startActivity(intent);
-        startActivityForResult(intent, NOTE_REQUEST_CODE);
+        controller.showNoteDetails(noteEntity);
+    }
+
+    public interface Controller {
+        void showNoteDetails (NotesEntity noteEntity);
     }
 
 }

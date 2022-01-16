@@ -15,10 +15,11 @@ import ru.gb.notesmanager.App;
 import ru.gb.notesmanager.domain.NoteRepository;
 import ru.gb.notesmanager.domain.NotesEntity;
 import ru.gb.notesmanager.R;
+import ru.gb.notesmanager.ui.details.NoteDetailsFragment;
 import ru.gb.notesmanager.ui.list.NoteAdapter;
 import ru.gb.notesmanager.ui.list.NotesListFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NotesListFragment.Controller{
     private static final String TAG = "@@@";
     private static final String TAG_NOTES_LIST_FRAGMENT = "TAG_NOTES_LIST_FRAGMENT";
 
@@ -36,9 +37,18 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
 
+
+
     }
 
 
-
-
+    @Override
+    public void showNoteDetails(NotesEntity noteEntity) {
+        Fragment noteDetailsFragment = NoteDetailsFragment.newInstance(noteEntity);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.activity_main__list_fragment_container, noteDetailsFragment)
+                .addToBackStack(null)
+                .commit();
+    }
 }
