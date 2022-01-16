@@ -1,5 +1,6 @@
 package ru.gb.notesmanager.ui.details;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import ru.gb.notesmanager.R;
 import ru.gb.notesmanager.domain.NotesEntity;
+import ru.gb.notesmanager.ui.list.NotesListFragment;
 
 public class NoteDetailsFragment extends Fragment {
     private static final String NOTE_ARG_KEY = "NOTE_ARG_KEY";
@@ -23,7 +25,8 @@ public class NoteDetailsFragment extends Fragment {
     private Button deleteButton;
     private Button okButton;
     private Button cancelButton;
-    private boolean addNote;
+    private NotesEntity notesEntity;
+    private Controller controller;
 
     public static NoteDetailsFragment newInstance (NotesEntity noteEntity) {
         NoteDetailsFragment noteDetailsFragment = new NoteDetailsFragment();
@@ -33,6 +36,15 @@ public class NoteDetailsFragment extends Fragment {
         return noteDetailsFragment;
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof NoteDetailsFragment.Controller) {
+            controller = (NoteDetailsFragment.Controller) context;
+        } else {
+            throw new IllegalStateException("Activity must implement NotesListFragment.Controller");
+        }
+    }
 
     @Nullable
     @Override
@@ -48,6 +60,30 @@ public class NoteDetailsFragment extends Fragment {
         deleteButton = view.findViewById(R.id.fragment_note_details__delete_button);
         okButton = view.findViewById(R.id.fragment_note_details__ok_button);
         cancelButton = view.findViewById(R.id.fragment_note_details__cancel_button);
+        notesEntity = getArguments().getParcelable(NOTE_ARG_KEY);
+        titleEditText.setText(notesEntity.getTitle());
+        dateTextView.setText(notesEntity.getDate());
+        noteEditText.setText(notesEntity.getTextNote());
+
+        deleteButton.setOnClickListener(view1 -> {
+            controller.onDeleteButtonDetails(notesEntity);
+        });
+        cancelButton.setOnClickListener(view1 -> {
+            controller.onCancelButtonDetails();
+        });
+        okButton.setOnClickListener(view1 -> {
+            notesEntity.setTitle(titleEditText.getText().toString());
+            notesEntity.setTextNote(noteEditText.getText().toString());
+            notesEntity.setDate();
+            controller.onOkButtonDetails(notesEntity);
+        });
 
     }
+
+    public interface Controller {
+        void onDeleteButtonDetails(NotesEntity noteEntity);
+        void onOkButtonDetails(NotesEntity noteEntity);
+        void onCancelButtonDetails();
+    }
+
 }

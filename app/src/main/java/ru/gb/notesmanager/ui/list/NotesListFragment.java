@@ -58,7 +58,7 @@ public class NotesListFragment extends Fragment implements OnNoteListener {
     private void initButton(@NonNull View view) {
         addButton = view.findViewById(R.id.fragment_notes_list__add_button);
         addButton.setOnClickListener(v -> {
-
+            controller.addNote();
         });
     }
 
@@ -66,7 +66,7 @@ public class NotesListFragment extends Fragment implements OnNoteListener {
         recyclerView = view.findViewById(R.id.fragment_notes_list__recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new NoteAdapter();
-        adapter.setNoteList(noteRepository.getNotes());
+        updateNoteList();
         adapter.setOnNoteListener(this);
         recyclerView.setAdapter(adapter);
     }
@@ -74,7 +74,7 @@ public class NotesListFragment extends Fragment implements OnNoteListener {
     @Override
     public void onDeleteEmployee(NotesEntity noteEntity) {
         noteRepository.deleteNote(noteEntity);
-        adapter.setNoteList(noteRepository.getNotes());
+        updateNoteList();
     }
 
     @Override
@@ -87,8 +87,14 @@ public class NotesListFragment extends Fragment implements OnNoteListener {
         controller.showNoteDetails(noteEntity);
     }
 
+    public void updateNoteList() {
+        adapter.setNoteList(noteRepository.getNotes());
+    }
+
     public interface Controller {
-        void showNoteDetails (NotesEntity noteEntity);
+        void showNoteDetails(NotesEntity noteEntity);
+
+        void addNote();
     }
 
 }
