@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/title_note_edit_text"
+        android:id="@+id/fragment_note_details__title_note_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_size"
@@ -15,7 +15,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/date_note_text_view"
+        android:id="@+id/fragment_note_details__date_note_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_size"
@@ -24,7 +24,7 @@
         android:textStyle="italic" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/delete_button"
+        android:id="@+id/fragment_note_details__delete_button"
         style="@style/material_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/body_note_edit_text"
+        android:id="@+id/fragment_note_details__body_note_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="10"
@@ -57,7 +57,7 @@
         android:layout_weight="1"
         android:orientation="horizontal">
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/ok_button"
+            android:id="@+id/fragment_note_details__ok_button"
             style="@style/material_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
             android:text="@string/ok_text_button"
             android:textSize="14sp" />
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/cancel_button"
+            android:id="@+id/fragment_note_details__cancel_button"
             style="@style/material_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
