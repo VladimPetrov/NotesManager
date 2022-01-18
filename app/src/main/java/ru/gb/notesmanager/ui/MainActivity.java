@@ -38,11 +38,7 @@ public class MainActivity extends AppCompatActivity
         addNote = false;
         if (isTwoPaneMode()) {
             Fragment noteFragment = getSupportFragmentManager().findFragmentById(R.id.activity_main__list_fragment_container);
-            if (noteFragment instanceof NoteDetailsFragment) {
-                moveFragment(noteFragment);
-                //showListFragment();
-            }
-            // showListFragment();
+            if (noteFragment instanceof NoteDetailsFragment) moveFragment(noteFragment);
         }
         showListFragment();
 
@@ -68,11 +64,6 @@ public class MainActivity extends AppCompatActivity
                 .replace(R.id.activity_main__details_fragment_container, newFragment, TAG_NOTE_DETAILS_FRAGMENT)
                 .addToBackStack(null)
                 .commit();
-        //newFragment.onAttach((Context) this);
-        //FrameLayout container = findViewById(R.id.activity_main__details_fragment_container);
-        //final View fragmentView = newFragment.onCreateView(LayoutInflater.from(this), container, savedState);
-        //container.addView(fragmentView);
-        //newFragment.onViewCreated(fragmentView, savedState);
     }
 
     private boolean isTwoPaneMode() {
@@ -99,13 +90,19 @@ public class MainActivity extends AppCompatActivity
         }
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(contanerId, noteDetailsFragment)
+                .replace(contanerId, noteDetailsFragment, TAG_NOTE_DETAILS_FRAGMENT)
                 .addToBackStack(null)
                 .commit();
     }
 
     @Override
     public void showNoteDetails(NotesEntity noteEntity) {
+        if (isTwoPaneMode()) {
+            NoteDetailsFragment noteDetailsFragment = (NoteDetailsFragment) getSupportFragmentManager().findFragmentByTag(TAG_NOTE_DETAILS_FRAGMENT);
+            if (noteDetailsFragment != null) {
+                getSupportFragmentManager().popBackStack();
+            }
+        }
         Fragment noteDetailsFragment = NoteDetailsFragment.newInstance(noteEntity);
         int contanerId = R.id.activity_main__list_fragment_container;
         if (isTwoPaneMode()) {
@@ -113,7 +110,7 @@ public class MainActivity extends AppCompatActivity
         }
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(contanerId, noteDetailsFragment)
+                .replace(contanerId, noteDetailsFragment, TAG_NOTE_DETAILS_FRAGMENT)
                 .addToBackStack(null)
                 .commit();
     }
@@ -147,6 +144,5 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onCancelButtonDetails() {
         getSupportFragmentManager().popBackStack();
-
     }
 }
