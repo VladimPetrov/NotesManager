@@ -14,21 +14,22 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import ru.gb.notesmanager.R;
-import ru.gb.notesmanager.domain.NotesEntity;
+import ru.gb.notesmanager.domain.NoteEntity;
 import ru.gb.notesmanager.ui.list.NotesListFragment;
 
 public class NoteDetailsFragment extends Fragment {
     private static final String NOTE_ARG_KEY = "NOTE_ARG_KEY";
+    public static final String TAG_NOTE_DETAILS_FRAGMENT = "TAG_NOTE_DETAILS_FRAGMENT";
     private EditText titleEditText;
     private TextView dateTextView;
     private EditText noteEditText;
     private Button deleteButton;
     private Button okButton;
     private Button cancelButton;
-    private NotesEntity notesEntity;
+    private NoteEntity noteEntity;
     private Controller controller;
 
-    public static NoteDetailsFragment newInstance (NotesEntity noteEntity) {
+    public static NoteDetailsFragment newInstance (NoteEntity noteEntity) {
         NoteDetailsFragment noteDetailsFragment = new NoteDetailsFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(NOTE_ARG_KEY,noteEntity);
@@ -54,35 +55,41 @@ public class NoteDetailsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        initViews(view);
+        initListener();
+    }
+
+    private void initViews(@NonNull View view){
         titleEditText = view.findViewById(R.id.fragment_note_details__title_note_edit_text);
         dateTextView = view.findViewById(R.id.fragment_note_details__date_note_text_view);
         noteEditText = view.findViewById(R.id.fragment_note_details__body_note_edit_text);
         deleteButton = view.findViewById(R.id.fragment_note_details__delete_button);
         okButton = view.findViewById(R.id.fragment_note_details__ok_button);
         cancelButton = view.findViewById(R.id.fragment_note_details__cancel_button);
-        notesEntity = getArguments().getParcelable(NOTE_ARG_KEY);
-        titleEditText.setText(notesEntity.getTitle());
-        dateTextView.setText(notesEntity.getDate());
-        noteEditText.setText(notesEntity.getTextNote());
+        noteEntity = getArguments().getParcelable(NOTE_ARG_KEY);
+        titleEditText.setText(noteEntity.getTitle());
+        dateTextView.setText(noteEntity.getDate());
+        noteEditText.setText(noteEntity.getTextNote());
+    }
 
+    private void initListener() {
         deleteButton.setOnClickListener(view1 -> {
-            controller.onDeleteButtonDetails(notesEntity);
+            controller.onDeleteButtonDetails(noteEntity);
         });
         cancelButton.setOnClickListener(view1 -> {
             controller.onCancelButtonDetails();
         });
         okButton.setOnClickListener(view1 -> {
-            notesEntity.setTitle(titleEditText.getText().toString());
-            notesEntity.setTextNote(noteEditText.getText().toString());
-            notesEntity.setDate();
-            controller.onOkButtonDetails(notesEntity);
+            noteEntity.setTitle(titleEditText.getText().toString());
+            noteEntity.setTextNote(noteEditText.getText().toString());
+            noteEntity.setDate();
+            controller.onOkButtonDetails(noteEntity);
         });
-
     }
 
     public interface Controller {
-        void onDeleteButtonDetails(NotesEntity noteEntity);
-        void onOkButtonDetails(NotesEntity noteEntity);
+        void onDeleteButtonDetails(NoteEntity noteEntity);
+        void onOkButtonDetails(NoteEntity noteEntity);
         void onCancelButtonDetails();
     }
 

@@ -1,9 +1,9 @@
 package ru.gb.notesmanager.ui;
 
-import ru.gb.notesmanager.domain.NotesEntity;
+import ru.gb.notesmanager.domain.NoteEntity;
 
 public interface OnNoteListener {
-    void onDeleteEmployee(NotesEntity employeeEntity);
-    void onClickEmployee(NotesEntity employeeEntity);
-    void onUpdateEmployee(NotesEntity employeeEntity);
+    void onDeleteEmployee(NoteEntity employeeEntity);
+    void onClickEmployee(NoteEntity employeeEntity);
+    void onUpdateEmployee(NoteEntity employeeEntity);
 }

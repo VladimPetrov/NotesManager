@@ -10,12 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.gb.notesmanager.domain.NotesEntity;
+import ru.gb.notesmanager.domain.NoteEntity;
 import ru.gb.notesmanager.ui.OnNoteListener;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
-    private List<NotesEntity> noteList = new ArrayList<>();
+    private List<NoteEntity> noteList = new ArrayList<>();
     private OnNoteListener onNoteListener;
 
 
@@ -37,7 +37,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         return noteList.size();
     }
 
-    private NotesEntity getItem(int position) {
+    private NoteEntity getItem(int position) {
         return noteList.get(position);
     }
 
@@ -45,7 +45,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         this.onNoteListener = onNoteListener;
     }
 
-    public void setNoteList(List<NotesEntity> noteList) {
+    public void setNoteList(List<NoteEntity> noteList) {
         this.noteList = noteList;
         notifyDataSetChanged();
     }
