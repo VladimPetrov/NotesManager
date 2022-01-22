@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import ru.gb.notesmanager.domain.NotesEntity;
+import ru.gb.notesmanager.domain.NoteEntity;
 import ru.gb.notesmanager.R;
 import ru.gb.notesmanager.ui.OnNoteListener;
 
@@ -28,7 +28,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder{
         this.onNoteListener = onNoteListener;
     }
 
-    public void bind(NotesEntity note) {
+    public void bind(NoteEntity note) {
         deleteButton.setOnClickListener(v -> onNoteListener.onDeleteEmployee(note));
         itemView.setOnClickListener(v -> onNoteListener.onClickEmployee(note));
         updateButton.setOnClickListener(v -> onNoteListener.onUpdateEmployee(note));

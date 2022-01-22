@@ -17,10 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import ru.gb.notesmanager.App;
 import ru.gb.notesmanager.R;
 import ru.gb.notesmanager.domain.NoteRepository;
-import ru.gb.notesmanager.domain.NotesEntity;
+import ru.gb.notesmanager.domain.NoteEntity;
 import ru.gb.notesmanager.ui.OnNoteListener;
 
 public class NotesListFragment extends Fragment implements OnNoteListener {
+    public static final String TAG_NOTES_LIST_FRAGMENT = "TAG_NOTES_LIST_FRAGMENT";
     private static final int NOTE_REQUEST_CODE = 10;
     private RecyclerView recyclerView;
     private NoteAdapter adapter;
@@ -72,18 +73,18 @@ public class NotesListFragment extends Fragment implements OnNoteListener {
     }
 
     @Override
-    public void onDeleteEmployee(NotesEntity noteEntity) {
+    public void onDeleteEmployee(NoteEntity noteEntity) {
         noteRepository.deleteNote(noteEntity);
         updateNoteList();
     }
 
     @Override
-    public void onClickEmployee(NotesEntity noteEntity) {
+    public void onClickEmployee(NoteEntity noteEntity) {
         controller.showNoteDetails(noteEntity);
     }
 
     @Override
-    public void onUpdateEmployee(NotesEntity noteEntity) {
+    public void onUpdateEmployee(NoteEntity noteEntity) {
         controller.showNoteDetails(noteEntity);
     }
 
@@ -92,7 +93,7 @@ public class NotesListFragment extends Fragment implements OnNoteListener {
     }
 
     public interface Controller {
-        void showNoteDetails(NotesEntity noteEntity);
+        void showNoteDetails(NoteEntity noteEntity);
 
         void addNote();
     }

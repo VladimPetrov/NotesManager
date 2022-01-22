@@ -6,21 +6,21 @@ import android.os.Parcelable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class NotesEntity implements Parcelable {
+public class NoteEntity implements Parcelable {
     private String id;
     private String title;
     private String textNote;
     private String date;
     private final String formatDate = "dd MMM yyyy HH:mm:ss";
 
-    public NotesEntity(String id, String title, String textNote) {
+    public NoteEntity(String id, String title, String textNote) {
         this.id = id;
         this.title = title;
         this.textNote = textNote;
         setDate();
     }
 
-    protected NotesEntity(Parcel in) {
+    protected NoteEntity(Parcel in) {
         id = in.readString();
         title = in.readString();
         textNote = in.readString();
@@ -28,15 +28,15 @@ public class NotesEntity implements Parcelable {
 
     }
 
-    public static final Creator<NotesEntity> CREATOR = new Creator<NotesEntity>() {
+    public static final Creator<NoteEntity> CREATOR = new Creator<NoteEntity>() {
         @Override
-        public NotesEntity createFromParcel(Parcel in) {
-            return new NotesEntity(in);
+        public NoteEntity createFromParcel(Parcel in) {
+            return new NoteEntity(in);
         }
 
         @Override
-        public NotesEntity[] newArray(int size) {
-            return new NotesEntity[size];
+        public NoteEntity[] newArray(int size) {
+            return new NoteEntity[size];
         }
     };
 
