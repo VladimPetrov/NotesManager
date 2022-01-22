@@ -22,7 +22,6 @@ import ru.gb.notesmanager.ui.OnNoteListener;
 
 public class NotesListFragment extends Fragment implements OnNoteListener {
     public static final String TAG_NOTES_LIST_FRAGMENT = "TAG_NOTES_LIST_FRAGMENT";
-    private static final int NOTE_REQUEST_CODE = 10;
     private RecyclerView recyclerView;
     private NoteAdapter adapter;
     private NoteRepository noteRepository;

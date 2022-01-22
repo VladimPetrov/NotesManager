@@ -3,11 +3,14 @@ package ru.gb.notesmanager.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
 import android.os.Bundle;
 import android.widget.FrameLayout;
+
 import ru.gb.notesmanager.App;
 import ru.gb.notesmanager.domain.NoteEntity;
 import ru.gb.notesmanager.R;
+import ru.gb.notesmanager.domain.NoteRepository;
 import ru.gb.notesmanager.ui.details.NoteDetailsFragment;
 import ru.gb.notesmanager.ui.list.NotesListFragment;
 
@@ -15,12 +18,14 @@ public class MainActivity extends AppCompatActivity
         implements NotesListFragment.Controller, NoteDetailsFragment.Controller {
 
     private boolean addNote;
+    private NoteRepository noteRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         addNote = false;
+        noteRepository = App.get(this).getNoteRepository();
         if (isTwoPaneMode()) {
             Fragment noteFragment = getSupportFragmentManager().findFragmentById(R.id.activity_main__list_fragment_container);
             if (noteFragment instanceof NoteDetailsFragment) moveFragment(noteFragment);
@@ -68,7 +73,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void addNote() {
-        NoteEntity noteEntity = new NoteEntity(String.valueOf(App.get(this).getNoteRepository().getSize()), "", "");
+        NoteEntity noteEntity = new NoteEntity(String.valueOf(noteRepository.getSize()), "", "");
         addNote = true;
         Fragment noteDetailsFragment = NoteDetailsFragment.newInstance(noteEntity);
         int contanerId = R.id.activity_main__list_fragment_container;
@@ -106,7 +111,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onDeleteButtonDetails(NoteEntity noteEntity) {
         getSupportFragmentManager().popBackStack();
-        App.get(this).getNoteRepository().deleteNote(noteEntity);
+        noteRepository.deleteNote(noteEntity);
         NotesListFragment notesListFragment = (NotesListFragment) getSupportFragmentManager()
                 .findFragmentByTag(NotesListFragment.TAG_NOTES_LIST_FRAGMENT);
         if (notesListFragment == null) {
@@ -119,9 +124,9 @@ public class MainActivity extends AppCompatActivity
     public void onOkButtonDetails(NoteEntity noteEntity) {
         getSupportFragmentManager().popBackStack();
         if (addNote) {
-            App.get(this).getNoteRepository().addNote(noteEntity);
+            noteRepository.addNote(noteEntity);
         } else {
-            App.get(this).getNoteRepository().updateNote(noteEntity);
+            noteRepository.updateNote(noteEntity);
         }
         NotesListFragment notesListFragment = (NotesListFragment) getSupportFragmentManager()
                 .findFragmentByTag(NotesListFragment.TAG_NOTES_LIST_FRAGMENT);

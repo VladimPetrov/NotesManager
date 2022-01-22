@@ -18,8 +18,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     private List<NoteEntity> noteList = new ArrayList<>();
     private OnNoteListener onNoteListener;
 
-
-
     @NonNull
     @Override
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

@@ -2,7 +2,6 @@ package ru.gb.notesmanager.ui.list;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,10 +12,9 @@ import ru.gb.notesmanager.domain.NoteEntity;
 import ru.gb.notesmanager.R;
 import ru.gb.notesmanager.ui.OnNoteListener;
 
-public class NoteViewHolder extends RecyclerView.ViewHolder{
+public class NoteViewHolder extends RecyclerView.ViewHolder {
     private final TextView titleTextView = itemView.findViewById(R.id.title_text_view);
     private final TextView dataTextView = itemView.findViewById(R.id.data_text_view);
-    //private final Button deleteButton = itemView.findViewById(R.id.delete_button);
     private final ImageView deleteButton = itemView.findViewById(R.id.delete_image_view);
     private final ImageView updateButton = itemView.findViewById(R.id.update_image_view);
     private OnNoteListener onNoteListener;
@@ -32,10 +30,8 @@ public class NoteViewHolder extends RecyclerView.ViewHolder{
         deleteButton.setOnClickListener(v -> onNoteListener.onDeleteEmployee(note));
         itemView.setOnClickListener(v -> onNoteListener.onClickEmployee(note));
         updateButton.setOnClickListener(v -> onNoteListener.onUpdateEmployee(note));
-
         titleTextView.setText(note.getTitle());
         dataTextView.setText(note.getDate());
-
     }
 
 }
