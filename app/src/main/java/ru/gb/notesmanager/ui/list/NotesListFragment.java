@@ -87,7 +87,7 @@ public class NotesListFragment extends Fragment implements OnNoteListener {
                     deleteEmployee(noteEntity);
                 })
                 .setNegativeButton("Нет", (dialog, id) -> {
-                    Toast.makeText(getContext(), "Удаление отменено", Toast.LENGTH_SHORT);
+                    Toast.makeText(getContext(), "Удаление отменено", Toast.LENGTH_SHORT).show();
                 })
                 .show();
 

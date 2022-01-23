@@ -3,8 +3,14 @@ package ru.gb.notesmanager.ui;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationChannelCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -18,14 +24,17 @@ import ru.gb.notesmanager.ui.list.NotesListFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NotesListFragment.Controller, NoteDetailsFragment.Controller {
-
+    private static final String CHANNEL_ID = "channel for NoteManager";
+    private static final int NOTIFICATION_ID = 2;
     private boolean addNote;
     private NoteRepository noteRepository;
+    private NotificationChannelCompat notificationChannel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        createNotificationChannel();
         addNote = false;
         noteRepository = App.get(this).getNoteRepository();
         if (isTwoPaneMode()) {
@@ -33,6 +42,16 @@ public class MainActivity extends AppCompatActivity
             if (noteFragment instanceof NoteDetailsFragment) moveFragment(noteFragment);
         }
         showListFragment();
+    }
+
+    private void createNotificationChannel() {
+        notificationChannel = new NotificationChannelCompat.Builder(
+        CHANNEL_ID,
+                NotificationManagerCompat.IMPORTANCE_MAX)
+                .setDescription("NoteManager")
+                .setName("Глупые сообщения")
+                .build();
+        NotificationManagerCompat.from(this).createNotificationChannel(notificationChannel);
     }
 
     private void moveFragment(Fragment oldFragment) {
@@ -126,7 +145,7 @@ public class MainActivity extends AppCompatActivity
                     notesListFragment.deleteEmployee(noteEntity);
                 })
                 .setNegativeButton("Нет", (dialog, id) -> {
-                    Toast.makeText(this, "Удаление отменено", Toast.LENGTH_LONG);
+                    Toast.makeText(this, "Удаление отменено", Toast.LENGTH_LONG).show();
                 })
                 .show();
     }
@@ -136,6 +155,14 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().popBackStack();
         if (addNote) {
             noteRepository.addNote(noteEntity);
+            final Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                    .setContentTitle("Добавлена заметка")
+                    .setContentText("\"" + noteEntity.getTitle() + "\"")
+                    .setColorized(true)
+                    .setColor(Color.GREEN)
+                    .setSmallIcon(R.drawable.ic_baseline_library_books_24)
+                    .build();
+            NotificationManagerCompat.from(this).notify(NOTIFICATION_ID, notification);
         } else {
             noteRepository.updateNote(noteEntity);
         }
