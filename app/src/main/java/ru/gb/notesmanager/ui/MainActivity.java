@@ -1,11 +1,13 @@
 package ru.gb.notesmanager.ui;
 
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import ru.gb.notesmanager.App;
 import ru.gb.notesmanager.domain.NoteEntity;
@@ -110,14 +112,23 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onDeleteButtonDetails(NoteEntity noteEntity) {
-        getSupportFragmentManager().popBackStack();
-        noteRepository.deleteNote(noteEntity);
-        NotesListFragment notesListFragment = (NotesListFragment) getSupportFragmentManager()
-                .findFragmentByTag(NotesListFragment.TAG_NOTES_LIST_FRAGMENT);
-        if (notesListFragment == null) {
-            throw new IllegalArgumentException("NotesListFragment not on screen");
-        }
-        notesListFragment.onDeleteEmployee(noteEntity);
+        new AlertDialog.Builder(this)
+                .setTitle("Внимание!")
+                .setMessage("Вы точно хотите удалить \"" + noteEntity.getTitle() + "\" ?")
+                .setPositiveButton("Да", (dialog, id) -> {
+                    getSupportFragmentManager().popBackStack();
+                    noteRepository.deleteNote(noteEntity);
+                    NotesListFragment notesListFragment = (NotesListFragment) getSupportFragmentManager()
+                            .findFragmentByTag(NotesListFragment.TAG_NOTES_LIST_FRAGMENT);
+                    if (notesListFragment == null) {
+                        throw new IllegalArgumentException("NotesListFragment not on screen");
+                    }
+                    notesListFragment.deleteEmployee(noteEntity);
+                })
+                .setNegativeButton("Нет", (dialog, id) -> {
+                    Toast.makeText(this, "Удаление отменено", Toast.LENGTH_LONG);
+                })
+                .show();
     }
 
     @Override
