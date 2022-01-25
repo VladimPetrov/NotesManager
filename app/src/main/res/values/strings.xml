@@ -5,4 +5,8 @@
     <string name="add_text_button">Add</string>
     <string name="ok_text_button">OK</string>
     <string name="cancel_text_button">Cancel</string>
+    <string name="item_menu_add">Добавить</string>
+    <string name="item_menu_delete">Удалить</string>
+    <string name="item_menu_ok">OK</string>
+    <string name="item_menu_cancel">Cancel</string>
 </resources>
