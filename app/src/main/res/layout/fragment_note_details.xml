@@ -4,12 +4,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/fragment_note_details__toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/menu_background" />
+
     <EditText
         android:id="@+id/fragment_note_details__title_note_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_size"
         android:hint="Title"
+        android:padding="@dimen/padding_size"
         android:textColor="@color/black"
         android:textSize="28sp"
         android:textStyle="bold" />
@@ -46,16 +52,18 @@
         android:layout_height="wrap_content"
         android:layout_weight="10"
         android:background="@color/note_background"
-        android:padding="@dimen/padding_size"
         android:hint="Text"
+        android:padding="@dimen/padding_size"
         android:textColor="@color/black"
         android:textSize="14sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_weight="1"
+        android:gravity="center"
         android:orientation="horizontal">
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/fragment_note_details__ok_button"
             style="@style/material_button"
@@ -64,6 +72,7 @@
             android:layout_marginEnd="90dp"
             android:text="@string/ok_text_button"
             android:textSize="14sp" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/fragment_note_details__cancel_button"
             style="@style/material_button"

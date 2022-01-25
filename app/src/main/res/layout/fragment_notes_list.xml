@@ -7,6 +7,12 @@
     android:orientation="vertical"
     tools:context=".ui.MainActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/fragment_notes_list__toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/menu_background" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/fragment_notes_list__add_button"
         style="@style/material_button"
