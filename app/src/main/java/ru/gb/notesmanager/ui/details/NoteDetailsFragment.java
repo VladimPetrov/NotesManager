@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import ru.gb.notesmanager.R;
 import ru.gb.notesmanager.domain.NoteEntity;
-import ru.gb.notesmanager.ui.list.NotesListFragment;
+
 
 public class NoteDetailsFragment extends Fragment {
     private static final String NOTE_ARG_KEY = "NOTE_ARG_KEY";
@@ -29,10 +29,10 @@ public class NoteDetailsFragment extends Fragment {
     private NoteEntity noteEntity;
     private Controller controller;
 
-    public static NoteDetailsFragment newInstance (NoteEntity noteEntity) {
+    public static NoteDetailsFragment newInstance(NoteEntity noteEntity) {
         NoteDetailsFragment noteDetailsFragment = new NoteDetailsFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(NOTE_ARG_KEY,noteEntity);
+        bundle.putParcelable(NOTE_ARG_KEY, noteEntity);
         noteDetailsFragment.setArguments(bundle);
         return noteDetailsFragment;
     }
@@ -50,7 +50,7 @@ public class NoteDetailsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_note_details, container,false);
+        return inflater.inflate(R.layout.fragment_note_details, container, false);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class NoteDetailsFragment extends Fragment {
         initListener();
     }
 
-    private void initViews(@NonNull View view){
+    private void initViews(@NonNull View view) {
         titleEditText = view.findViewById(R.id.fragment_note_details__title_note_edit_text);
         dateTextView = view.findViewById(R.id.fragment_note_details__date_note_text_view);
         noteEditText = view.findViewById(R.id.fragment_note_details__body_note_edit_text);
@@ -89,7 +89,9 @@ public class NoteDetailsFragment extends Fragment {
 
     public interface Controller {
         void onDeleteButtonDetails(NoteEntity noteEntity);
+
         void onOkButtonDetails(NoteEntity noteEntity);
+
         void onCancelButtonDetails();
     }
 
