@@ -8,7 +8,7 @@
         android:id="@+id/fragment_note_details__toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/menu_background" />
+        android:background="@color/menu_background_details" />
 
     <EditText
         android:id="@+id/fragment_note_details__title_note_edit_text"
