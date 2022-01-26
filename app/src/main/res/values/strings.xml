@@ -9,4 +9,5 @@
     <string name="item_menu_delete">Удалить</string>
     <string name="item_menu_ok">OK</string>
     <string name="item_menu_cancel">Cancel</string>
+    <string name="item_menu_update">Редактировать</string>
 </resources>

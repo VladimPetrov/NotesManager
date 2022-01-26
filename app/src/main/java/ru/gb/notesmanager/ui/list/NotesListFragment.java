@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -80,13 +81,13 @@ public class NotesListFragment extends Fragment implements OnNoteListener {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.notes_list_menu,menu);
+        inflater.inflate(R.menu.notes_list_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     private void initMenu(@NonNull View view) {
         notesListFragmentToolbar = view.findViewById(R.id.fragment_notes_list__toolbar);
-        onCreateOptionsMenu(notesListFragmentToolbar.getMenu(),getActivity().getMenuInflater());
+        onCreateOptionsMenu(notesListFragmentToolbar.getMenu(), getActivity().getMenuInflater());
     }
 
     private void initButton(@NonNull View view) {
@@ -126,6 +127,29 @@ public class NotesListFragment extends Fragment implements OnNoteListener {
     }
 
     @Override
+    public boolean onClickPopupMenu(NoteEntity noteEntity, MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.notes_list_popup__item_delete: {
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Внимание!")
+                        .setMessage("Вы точно хотите удалить \"" + noteEntity.getTitle() + "\" ?")
+                        .setPositiveButton("Да", (dialog, id) -> {
+                            deleteEmployee(noteEntity);
+                        })
+                        .setNegativeButton("Нет", (dialog, id) -> {
+                            Toast.makeText(getContext(), "Удаление отменено", Toast.LENGTH_SHORT).show();
+                        })
+                        .show();
+                return true;
+            }
+            case R.id.notes_list_popup__item_update: {
+                controller.showNoteDetails(noteEntity);
+            }
+        }
+        return false;
+    }
+
+    @Override
     public void onClickEmployee(NoteEntity noteEntity) {
         controller.showNoteDetails(noteEntity);
     }
@@ -138,6 +162,7 @@ public class NotesListFragment extends Fragment implements OnNoteListener {
     public void updateNoteList() {
         adapter.setNoteList(noteRepository.getNotes());
     }
+
 
     public interface Controller {
         void showNoteDetails(NoteEntity noteEntity);
