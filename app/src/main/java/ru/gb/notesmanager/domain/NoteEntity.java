@@ -3,16 +3,23 @@ package ru.gb.notesmanager.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.esotericsoftware.kryo.Serializer;
+
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
-public class NoteEntity implements Parcelable {
+public class NoteEntity implements Parcelable, Serializable {
     private String id;
     private String title;
     private String textNote;
     private String date;
     private final String formatDate = "dd MMM yyyy HH:mm:ss";
+
+    public NoteEntity() {
+
+    }
 
     public NoteEntity(String title, String textNote) {
         this.id = UUID.randomUUID().toString();
@@ -41,7 +48,9 @@ public class NoteEntity implements Parcelable {
         }
     };
 
-    public String getId() { return id; }
+    public String getId() {
+        return id;
+    }
 
     public String getTitle() {
         return title;
@@ -63,7 +72,9 @@ public class NoteEntity implements Parcelable {
         return date;
     }
 
-    public void setDate() { this.date = new SimpleDateFormat(formatDate).format(new Date()); }
+    public void setDate() {
+        this.date = new SimpleDateFormat(formatDate).format(new Date());
+    }
 
     @Override
     public int describeContents() {

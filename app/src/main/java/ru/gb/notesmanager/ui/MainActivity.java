@@ -171,6 +171,7 @@ public class MainActivity extends AppCompatActivity
         if (notesListFragment == null) {
             throw new IllegalArgumentException("NotesListFragment not on screen");
         }
+        addNote = false;
         notesListFragment.updateNoteList();
     }
 
