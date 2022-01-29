@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void addNote() {
-        NoteEntity noteEntity = new NoteEntity(String.valueOf(noteRepository.getSize()), "", "");
+        NoteEntity noteEntity = new NoteEntity( "", "");
         addNote = true;
         Fragment noteDetailsFragment = NoteDetailsFragment.newInstance(noteEntity);
         int contanerId = R.id.activity_main__list_fragment_container;

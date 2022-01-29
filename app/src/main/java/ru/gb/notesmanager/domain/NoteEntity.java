@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 public class NoteEntity implements Parcelable {
     private String id;
@@ -13,8 +14,8 @@ public class NoteEntity implements Parcelable {
     private String date;
     private final String formatDate = "dd MMM yyyy HH:mm:ss";
 
-    public NoteEntity(String id, String title, String textNote) {
-        this.id = id;
+    public NoteEntity(String title, String textNote) {
+        this.id = UUID.randomUUID().toString();
         this.title = title;
         this.textNote = textNote;
         setDate();
