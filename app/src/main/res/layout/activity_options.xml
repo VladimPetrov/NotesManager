@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+
+    <TextView
+        android:id="@+id/activity_options__option"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/option_name_text"
+        android:textSize="@dimen/option_text_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/activity_options__count_starts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/activity_options__count_starts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Колличество запусков:"
+        app:layout_constraintBottom_toTopOf="@+id/activity_options__count_notes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_options__option" />
+
+    <TextView
+        android:id="@+id/activity_options__count_notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Колличество записей:"
+        app:layout_constraintBottom_toTopOf="@+id/activity_options__cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_options__count_starts" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/activity_options__cancel"
+        style="@style/material_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:text="@string/cancel_text_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_options__count_notes" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

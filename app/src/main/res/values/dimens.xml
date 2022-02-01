@@ -6,4 +6,5 @@
     <dimen name="width_image_view">56dp</dimen>
     <dimen name="height_image_view">56dp</dimen>
     <dimen name="data_text_size">16sp</dimen>
+    <dimen name="option_text_size">25dp</dimen>
 </resources>
