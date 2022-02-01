@@ -1,6 +1,7 @@
 package ru.gb.notesmanager.ui;
 
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationChannelCompat;
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.FrameLayout;
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity
 
     private void createNotificationChannel() {
         notificationChannel = new NotificationChannelCompat.Builder(
-        CHANNEL_ID,
+                CHANNEL_ID,
                 NotificationManagerCompat.IMPORTANCE_MAX)
                 .setDescription("NoteManager")
                 .setName("Глупые сообщения")
@@ -93,8 +95,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void openOption() {
+        Intent intent = new Intent(MainActivity.this, OptionActivity.class);
+        intent = intent.putExtra(OptionActivity.NUMBER_KEY, App.get(this).getOptions());
+        startActivity(intent);
+    }
+
+    @Override
     public void addNote() {
-        NoteEntity noteEntity = new NoteEntity( "", "");
+        NoteEntity noteEntity = new NoteEntity("", "");
         addNote = true;
         Fragment noteDetailsFragment = NoteDetailsFragment.newInstance(noteEntity);
         int contanerId = R.id.activity_main__list_fragment_container;
