@@ -20,7 +20,7 @@ public class App extends Application {
         super.onCreate();
         //noteRepository = new SharedPreferencesNotesRepo(this);
         noteRepository = new SnappyDBNotesRepo(this);
-        options = new NotesOptionRepository(20, noteRepository.getSize());
+        options = new NotesOptionRepository(this);
     }
 
 
@@ -32,7 +32,9 @@ public class App extends Application {
         return noteRepository;
     }
 
-    public NotesOption getOptions() {
-        return options.getParameter();
+    public NotesOptionRepository getOptions() {
+        return options;
     }
+
+
 }
