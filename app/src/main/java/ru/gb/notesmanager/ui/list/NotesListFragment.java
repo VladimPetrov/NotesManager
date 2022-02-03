@@ -4,6 +4,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -12,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +29,7 @@ import ru.gb.notesmanager.ui.OnNoteListener;
 
 public class NotesListFragment extends Fragment implements OnNoteListener {
     public static final String TAG_NOTES_LIST_FRAGMENT = "TAG_NOTES_LIST_FRAGMENT";
+    private Toolbar notesListFragmentToolbar;
     private RecyclerView recyclerView;
     private NoteAdapter adapter;
     private NoteRepository noteRepository;
@@ -55,6 +61,33 @@ public class NotesListFragment extends Fragment implements OnNoteListener {
         Log.d("@@@", "noteRepository.size = " + noteRepository.getNotes().size());
         initRecycler(view);
         initButton(view);
+        initMenu(view);
+        initMenuListener(notesListFragmentToolbar.getMenu());
+    }
+
+    private void initMenuListener(@NonNull Menu menu) {
+        menu.findItem(R.id.notes_list_menu__item_add).setOnMenuItemClickListener(this::onOptionsItemSelected);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.notes_list_menu__item_add:
+                controller.addNote();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.notes_list_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private void initMenu(@NonNull View view) {
+        notesListFragmentToolbar = view.findViewById(R.id.fragment_notes_list__toolbar);
+        onCreateOptionsMenu(notesListFragmentToolbar.getMenu(), getActivity().getMenuInflater());
     }
 
     private void initButton(@NonNull View view) {
@@ -94,6 +127,29 @@ public class NotesListFragment extends Fragment implements OnNoteListener {
     }
 
     @Override
+    public boolean onClickPopupMenu(NoteEntity noteEntity, MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.notes_list_popup__item_delete: {
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Внимание!")
+                        .setMessage("Вы точно хотите удалить \"" + noteEntity.getTitle() + "\" ?")
+                        .setPositiveButton("Да", (dialog, id) -> {
+                            deleteEmployee(noteEntity);
+                        })
+                        .setNegativeButton("Нет", (dialog, id) -> {
+                            Toast.makeText(getContext(), "Удаление отменено", Toast.LENGTH_SHORT).show();
+                        })
+                        .show();
+                return true;
+            }
+            case R.id.notes_list_popup__item_update: {
+                controller.showNoteDetails(noteEntity);
+            }
+        }
+        return false;
+    }
+
+    @Override
     public void onClickEmployee(NoteEntity noteEntity) {
         controller.showNoteDetails(noteEntity);
     }
@@ -106,6 +162,7 @@ public class NotesListFragment extends Fragment implements OnNoteListener {
     public void updateNoteList() {
         adapter.setNoteList(noteRepository.getNotes());
     }
+
 
     public interface Controller {
         void showNoteDetails(NoteEntity noteEntity);

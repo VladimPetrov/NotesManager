@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/note_details_menu__item_delete"
+        android:icon="@drawable/ic_baseline_delete_forever_24"
+        android:title="@string/item_menu_delete"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/note_details_menu__item_ok"
+        android:icon="@drawable/ic_baseline_done_24"
+        android:title="@string/item_menu_ok"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/note_details_menu__item_cancel"
+        android:icon="@drawable/ic_baseline_do_disturb_24"
+        android:title="@string/item_menu_cancel"
+        app:showAsAction="always" />
+</menu>
