@@ -9,13 +9,14 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import android.app.Notification;
-import android.app.NotificationChannel;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import ru.gb.notesmanager.App;
+import ru.gb.notesmanager.data.NotesOptionRepository;
 import ru.gb.notesmanager.domain.NoteEntity;
 import ru.gb.notesmanager.R;
 import ru.gb.notesmanager.domain.NoteRepository;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity
     private static final int NOTIFICATION_ID = 2;
     private boolean addNote;
     private NoteRepository noteRepository;
+    private NotesOptionRepository options;
     private NotificationChannelCompat notificationChannel;
 
     @Override
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity
         createNotificationChannel();
         addNote = false;
         noteRepository = App.get(this).getNoteRepository();
+        options = App.get(this).getOptions();
         if (isTwoPaneMode()) {
             Fragment noteFragment = getSupportFragmentManager().findFragmentById(R.id.activity_main__list_fragment_container);
             if (noteFragment instanceof NoteDetailsFragment) moveFragment(noteFragment);
@@ -46,7 +49,7 @@ public class MainActivity extends AppCompatActivity
 
     private void createNotificationChannel() {
         notificationChannel = new NotificationChannelCompat.Builder(
-        CHANNEL_ID,
+                CHANNEL_ID,
                 NotificationManagerCompat.IMPORTANCE_MAX)
                 .setDescription("NoteManager")
                 .setName("Глупые сообщения")
@@ -93,8 +96,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void openOption() {
+        Intent intent = new Intent(MainActivity.this, OptionActivity.class);
+        intent = intent.putExtra(OptionActivity.NUMBER_KEY, options.getParameter());
+        startActivity(intent);
+    }
+
+    @Override
     public void addNote() {
-        NoteEntity noteEntity = new NoteEntity(String.valueOf(noteRepository.getSize()), "", "");
+        NoteEntity noteEntity = new NoteEntity("", "");
         addNote = true;
         Fragment noteDetailsFragment = NoteDetailsFragment.newInstance(noteEntity);
         int contanerId = R.id.activity_main__list_fragment_container;
@@ -137,6 +147,7 @@ public class MainActivity extends AppCompatActivity
                 .setPositiveButton("Да", (dialog, id) -> {
                     getSupportFragmentManager().popBackStack();
                     noteRepository.deleteNote(noteEntity);
+                    options.setParameter(noteRepository.getSize());
                     NotesListFragment notesListFragment = (NotesListFragment) getSupportFragmentManager()
                             .findFragmentByTag(NotesListFragment.TAG_NOTES_LIST_FRAGMENT);
                     if (notesListFragment == null) {
@@ -155,6 +166,7 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().popBackStack();
         if (addNote) {
             noteRepository.addNote(noteEntity);
+            options.setParameter(noteRepository.getSize());
             final Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                     .setContentTitle("Добавлена заметка")
                     .setContentText("\"" + noteEntity.getTitle() + "\"")
@@ -171,6 +183,7 @@ public class MainActivity extends AppCompatActivity
         if (notesListFragment == null) {
             throw new IllegalArgumentException("NotesListFragment not on screen");
         }
+        addNote = false;
         notesListFragment.updateNoteList();
     }
 

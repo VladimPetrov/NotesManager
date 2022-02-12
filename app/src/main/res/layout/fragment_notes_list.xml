@@ -14,11 +14,11 @@
         android:background="@color/menu_background_list" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/fragment_notes_list__add_button"
+        android:id="@+id/fragment_notes_list__option_button"
         style="@style/material_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_text_button" />
+        android:text="@string/option_name_text" />
 
 
     <androidx.recyclerview.widget.RecyclerView

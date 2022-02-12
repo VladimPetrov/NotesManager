@@ -91,9 +91,10 @@ public class NotesListFragment extends Fragment implements OnNoteListener {
     }
 
     private void initButton(@NonNull View view) {
-        addButton = view.findViewById(R.id.fragment_notes_list__add_button);
+        addButton = view.findViewById(R.id.fragment_notes_list__option_button);
         addButton.setOnClickListener(v -> {
-            controller.addNote();
+            //controller.addNote();
+            controller.openOption();
         });
     }
 
@@ -168,6 +169,8 @@ public class NotesListFragment extends Fragment implements OnNoteListener {
         void showNoteDetails(NoteEntity noteEntity);
 
         void addNote();
+
+        void openOption();
     }
 
 }

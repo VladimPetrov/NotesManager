@@ -73,6 +73,9 @@ public class NoteDetailsFragment extends Fragment {
                 controller.onDeleteButtonDetails(noteEntity);
                 return true;
             case R.id.note_details_menu__item_ok:
+                noteEntity.setTitle(titleEditText.getText().toString());
+                noteEntity.setTextNote(noteEditText.getText().toString());
+                noteEntity.setDate();
                 controller.onOkButtonDetails(noteEntity);
                 return true;
             case R.id.note_details_menu__item_cancel:
